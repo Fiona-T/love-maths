@@ -52,8 +52,10 @@ function checkAnswer() {
 
     if (isCorrect) { //check if isCorrect is true
         alert("Excellent! You got it right :D"); //congratulation message
+        incrementScore(); //call the function to add 1 to score
     } else {
         alert(`Ooops...you answered ${userAnswer}, but the correct answer was ${calculatedAnswer[0]}!`); //otherwise show them correct answer
+        incrementWrongAnswer(); //call the function to add 1 to wrong answer tally
     }
 
     runGame(calculatedAnswer[1]); //then runs the game again, using 2nd element from calculatedAnswer array i.e. the game type
@@ -77,13 +79,22 @@ function calculateCorrectAnswer() {
 }
 
 // increment the correct score
+/**
+ * gets current score from the DOM and increments it by 1
+ * to increment the correct score held in the 'score' id element
+ */
 function incrementScore() {
-    
+    let oldScore = parseInt(document.getElementById("score").innerText); //variable to hold old score, from html element score, convert to Integer
+    document.getElementById("score").innerText = ++oldScore; //set the text in the html score element to equal oldScore +1
 }
 
-// increment the wrong answers
+/**
+ * gets current wrong answer tally from the DOM and increments it by 1
+ * to increment the wrong answer tally held in the 'incorrect' id element
+ */
 function incrementWrongAnswer() {
-    
+    let oldScore = parseInt(document.getElementById("incorrect").innerText); //variable to hold old score, from html element incorrect, convert to Integer
+    document.getElementById("incorrect").innerText = ++oldScore; //set the text in the html incorrect element to equal oldScore +1
 }
 
 // display the questions
