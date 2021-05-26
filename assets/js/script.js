@@ -9,10 +9,13 @@ document.addEventListener("DOMContentLoaded", function() { //when dom has loaded
                 alert("You clicked Submit!") // then display the alert
             } else { //otherwise
                 let gameType = this.getAttribute("data-type"); //variable gameType is equal to the element data type
-                alert(`You clicked ${gameType}`); //tells user the game type - note using backticks here
+                //alert(`You clicked ${gameType}`); //tells user the game type - note using backticks here - removed as was just to test
+                runGame(gameType); //run the runGame function on button click if not submit, parameter is gameType. 
             }
         })
     }
+
+    runGame("addition"); //the default is to run the addition game after the dom has loaded
 })
 
 
@@ -21,10 +24,18 @@ document.addEventListener("DOMContentLoaded", function() { //when dom has loaded
  * the main game loop, called when the script is first loaded
  * and after the user's answer has been processed
  */
-function runGame() {
+function runGame(gameType) {
     // each number is a random whole number between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
+
+    //check if the game type is addition
+    if (gameType === "addition") {
+        displayAdditionQuestion(num1, num2); //run the function relevant to that game type, taking in the parameters from above num1 and 2
+    } else {
+        alert(`unknown game type: ${gameType}`); //alert to display to user
+        throw `unknown game type: ${gameType}. Aborting!` //msg to display in console and will end the game
+    }
 }
 
 // check the answer
@@ -48,8 +59,10 @@ function incrementWrongAnswer() {
 }
 
 // display the questions
-function displayAdditionQuestion() {
-    
+function displayAdditionQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "+";
 }
 
 // display the questions
