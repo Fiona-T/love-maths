@@ -1,10 +1,10 @@
 // wait for the DOM to finish loading before running the game
 // Get the button elements and add event listeners to them
 
-document.addEventListener("DOMContentLoaded", function() { //when dom has loaded, run this function
+document.addEventListener("DOMContentLoaded", function () { //when dom has loaded, run this function
     let buttons = document.getElementsByTagName("button"); //get the buttons
-    for (let button of buttons){ //iterate through buttons array, returning each element in the array and storing in variable button
-        button.addEventListener("click", function() { //event listener for each button, when clicked on, run function
+    for (let button of buttons) { //iterate through buttons array, returning each element in the array and storing in variable button
+        button.addEventListener("click", function () { //event listener for each button, when clicked on, run function
             if (this.getAttribute("data-type") === "submit") { //if the data type is submit  
                 //alert("You clicked Submit!") // then display the alert - now replace this with below
                 checkAnswer(); //when submit button pressed, call function to check answer
@@ -16,6 +16,13 @@ document.addEventListener("DOMContentLoaded", function() { //when dom has loaded
         })
     }
 
+    //event listener for the answer-box, listen for the keydown
+    document.getElementById("answer-box").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") { //if the key pressed down is Enter
+            checkAnswer(); // then run the Check Answer function - i.e. same function that is called on click of submit btn
+        }
+    })
+
     runGame("addition"); //the default is to run the addition game after the dom has loaded
 })
 
@@ -26,6 +33,10 @@ document.addEventListener("DOMContentLoaded", function() { //when dom has loaded
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
+
+    document.getElementById("answer-box").value = ""; //set answer box to empty, i.e. clear answer from previous game
+    document.getElementById("answer-box").focus(); //sets focus to the answer box each time runGame function called
+
     // each number is a random whole number between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
@@ -43,7 +54,6 @@ function runGame(gameType) {
     }
 }
 
-// check the answer
 /**
  * compare user answer to 1st element in the array returned from the calculateCorrectAnswer function
  * display the relevant user message depending on if answer is correct or incorrect
@@ -86,7 +96,6 @@ function calculateCorrectAnswer() {
     }
 }
 
-// increment the correct score
 /**
  * gets current score from the DOM and increments it by 1
  * to increment the correct score held in the 'score' id element
@@ -105,12 +114,11 @@ function incrementWrongAnswer() {
     document.getElementById("incorrect").innerText = ++oldScore; //set the text in the html incorrect element to equal oldScore +1
 }
 
-// display the questions
 /**
  * sets text content of elements to the random numbers generated in runGame
  * and the operator to + since this is addition game
- * @param {*} operand1 
- * @param {*} operand2 
+ * @param {* random num1} operand1 
+ * @param {* random num2} operand2 
  */
 function displayAdditionQuestion(operand1, operand2) {
     document.getElementById("operand1").textContent = operand1;
@@ -118,14 +126,22 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById("operator").textContent = "+";
 }
 
-// display the questions
+/**
+ * display the Subtraction numbers and the operator
+ * @param { random numb1} operand1 
+ * @param {* random num2} operand2 
+ */
 function displaySubtractQuestion(operand1, operand2) {
     document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
     document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById("operator").textContent = "-";
 }
 
-// display the questions
+/**
+ * display the Multiplicaton numbers and the operator
+ * @param { random numb1} operand1 
+ * @param {* random num2} operand2 
+ */
 function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById("operand1").textContent = operand1;
     document.getElementById("operand2").textContent = operand2;
