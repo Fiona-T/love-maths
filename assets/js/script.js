@@ -48,6 +48,8 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2); //run the multiply question function
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2); //run the subtraction question function
+    } else if (gameType === "division") {
+        displayDivisionQuestion(num1, num2); //run the division question function
     } else { 
         alert(`unknown game type: ${gameType}`); //alert to display to user - unknown game type
         throw `unknown game type: ${gameType}. Aborting!` //msg to display in console and will end the game
@@ -90,6 +92,8 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"]; //return the result of multiply, plus game type
     } else if (operator === "-") {  //if operator is -
         return [operand1 - operand2, "subtract"]; //return result of subtraction, plus game type 
+    } else if (operator === "/") { // if operator is /
+        return [operand1 / operand2, "division"]; //return result of division, plus game type 
     } else { //if the operator is not +, x, -, then show error msg
         alert(`Unrecognised operator ${operator}`);
         throw `Unrecognised operator ${operator}. Aborting!`;
@@ -146,4 +150,20 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById("operand1").textContent = operand1;
     document.getElementById("operand2").textContent = operand2;
     document.getElementById("operator").textContent = "x";
+}
+
+/**
+ * display the Division numbers and the operator
+ * @param { random numb1} operand1 = multiply op1 x op2 to set op1
+ * @param {* random num2} operand2 
+ */
+function displayDivisionQuestion(operand1, operand2) {
+
+    //operand1 = operand1 * operand2; this is what model soln uses
+    
+    //document.getElementById("operand1").textContent = operand1; model soln
+
+    document.getElementById("operand1").textContent = operand1 * operand2;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "/";
 }
